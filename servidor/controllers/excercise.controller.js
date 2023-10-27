@@ -33,7 +33,7 @@ export async function getExercises(req, res){
         }).populate('user');
         res.json(exercises)
     } catch (error) {
-        return( res.status(404).json({message:"Tarea no encontrada"}))
+        return( res.status(404).json({message:"Exercise not found"}))
     }
 }
 
@@ -57,7 +57,6 @@ export async function getExercise(req, res){
 export async function updateExercise(req, res){
     try {
         const OneExercise = await exercise.findByIdAndUpdate(req.params.id, req.body,{ new: true});
-
         if(!OneExercise) return res.status(404).json({message: 'Exercise not found'});
         res.json(OneExercise);
     } catch (error) {
@@ -72,7 +71,7 @@ export async function deleteExercise (req, res){
 
         if (!exerciseFound) res.status(404).json( { message: 'exercise not found' });
 
-        return res.status(200).json({message:'Exercise delete succesfully '});
+        return res.status(200).json({message:'Exercise deleted succesfully '});
 
     } catch (error) {
         return res.status(404).json({message: 'algo ocurrio al eliminar la tarea'});
