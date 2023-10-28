@@ -11,5 +11,5 @@ router.post('/register',SchemaValidate(userRegisterValidateData),register);
 router.post('/login',SchemaValidate(userLoginValidateData),login);
 router.post('/logout',logout)
 
-router.get('verifyToken', verifyToken);
+router.get('/verifyToken', verifyToken);
 export default router;
