@@ -1,10 +1,11 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { ExerciseProvider } from './context/ExerciseContext.jsx'
 import HomePage from './pages/homePage.jsx'
 import Register from './pages/registerPage.jsx'
 import Login from './pages/loginPage.jsx'
 import ExercisePage  from './pages/exercisePage.jsx'
-import ExerciseFormPage  from './pages/ExerciseFormPage.jsx'
+import ExerciseFormPage from './pages/ExerciseFormPage.jsx'
 import Navbar from './components/navbar.jsx'
 import Footer  from './components/footer.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <ExerciseProvider>
      <BrowserRouter>
       <Navbar/>
         <Routes>
@@ -21,11 +23,12 @@ function App() {
         <Route element={<ProtectedRoute/>}>
           <Route path='/exercises' element={<ExercisePage/>}/>
           <Route path='/add-exercises' element={<ExerciseFormPage/>}/>
-          <Route path='/exercises/:id' element={<ExerciseFormPage/>}/>
+          <Route path='/exercise/:id' element={<ExerciseFormPage/>}/>
         </Route>
         </Routes>
         <Footer/>   
      </BrowserRouter>
+     </ExerciseProvider>
     </AuthProvider>
   )
 }
