@@ -8,7 +8,7 @@ export function createToken(payload){
     //se retorna una promesa
     return new Promise((resolve, reject)=>{
         jwt.sign(payload, secretKey, {
-            expiresIn: '1d'
+            expiresIn: "1d"
         },
         (err, token) => {
             if (err)reject(err);
