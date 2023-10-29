@@ -22,14 +22,15 @@ export default function Register() {
   })
 
   return (
-    <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
-      <div className='bg-emerald-900 max-w-md p-10 rounded-md'>
+    <div className='flex h-[calc(90vh-100px)] items-center justify-center'>
+      <div className='bg-emerald-800 max-w-md p-2 rounded-md'>
         {
           registerErrors.map((error,i)=>(
             <div className='bg-red-500 p-2 text-white' key={i}>{error}</div>
           ))
         }
         <form onSubmit={onSubmit}>
+        <h1 className='text-2xl text-lime-300 font-bold'>Register</h1>
           <input type="text" {...register("username",{required: true})}
                  className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                  placeholder='Username'/>
@@ -78,9 +79,14 @@ export default function Register() {
                     <p className='text-lime-300'>Confirm your password please</p>
                   )
                  }
-          <input type="number" {...register("age",{required: true})}
+          <input type="number" {...register("age",{required: true,min: 0})}
                  className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                 placeholder='Age'/>
+                 placeholder='Age'
+                 onInput={(e) => {
+                  if (e.target.value < 0) {
+                    e.target.value = 0;
+                  }
+                }}/>
                  {
                   errors.age && (
                     <p className='text-lime-300'>Age is required</p>
