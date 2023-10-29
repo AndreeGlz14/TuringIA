@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { createToken } from '../libs/jwt.js';
 import user from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
+import 'dotenv/config';
 
 //funcion para dar de alta un registro
 export async function register(req, res){
@@ -83,7 +84,7 @@ export async function logout (req, res){
 
 export async function verifyToken(req, res){
     const {token} = req.cookies;
-    const secretKey = process.env.CLAVE_SECRETA;
+    const secretKey = process.env.SECRET_KEY;
 
     if(!token)
     return res.status(401).json({message: 'access denied'});
@@ -92,7 +93,7 @@ export async function verifyToken(req, res){
         if(err)
         return res.status(401).json({message: 'access denied'});
         
-        const userFound = await user.findByID(User.id);
+        const userFound = await user.findById(User.id);
         if(!userFound)
         return res.status(401).json({message: 'access denied'});
         return  res.json({

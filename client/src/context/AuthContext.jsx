@@ -1,6 +1,6 @@
 import {createContext, useState, useContext, useEffect} from 'react';
 import Cookies from 'js-cookie';
-import { VerifyTokenRequest, registerRequest } from '../api/auth';
+import { VerifyTokenRequest, loginRequest, registerRequest } from '../api/auth';
 
 //Se crea un contexto
 export const AuthContext = createContext();
@@ -36,6 +36,25 @@ export function AuthProvider({children}){
         }
     }
 
+    //Funcion para loguearse
+    async function signin (user){
+        try {
+            const res = await loginRequest(user);
+            console.log(res);
+            setIsAuthenticated(true);
+            setUser(res.data);
+        } catch (error) {
+            console.log(error);
+            setErrors([error.response.data.message]);
+        }
+    }
+
+    //funcion para cerrar sesion
+    function logout(){
+        Cookies.remove("token");
+        setIsAuthenticated(false);
+        setUser(null);
+    }
     useEffect(() =>{
 
         //Funcion para checar si hay una cookie
@@ -81,7 +100,7 @@ export function AuthProvider({children}){
     },[errors])
 
     return (
-        <AuthContext.Provider value = {{signup,loading,user,isAuthenticated,errors}}> 
+        <AuthContext.Provider value = {{signup,signin,logout,loading,user,isAuthenticated,errors}}> 
             {children}
         </AuthContext.Provider>
     )
