@@ -1,7 +1,7 @@
 //import 'dotenv/config';
 import axios from 'axios'
 
-const baseUrl = 'http://turing-ia.onrender.com/api'
+const baseUrl = 'https://turing-ia.onrender.com/api'
 
 //Se crea una instancia para consumir la api
 const instance = axios.create({
